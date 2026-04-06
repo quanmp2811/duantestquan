@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="robots" content="noindex, nofollow">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      height: 100dvh;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      overflow: hidden;
+    }
+
+    .header {
+      flex: 0 0 auto;
+      padding: 12px;
+      background: #1e1e2f;
+      color: white;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .menu,
+    .submenu {
+      display: flex;
+      flex: 0 0 auto;
+    }
+
+    .menu {
+      flex-wrap: nowrap;
+      background: #2c2c3e;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .submenu {
+      flex-direction: column;
+      background: #eef2f7;
+      border-right: 1px solid #d5dce5;
+      width: 280px;
+      min-width: 280px;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+
+    .submenu-search {
+      flex: 0 0 auto;
+      padding: 12px;
+      border-bottom: 1px solid #d5dce5;
+      background: #f7f9fc;
+    }
+
+    .submenu-search input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #c8d2df;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+      background: white;
+    }
+
+    .submenu-search input:focus {
+      border-color: #4caf50;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.16);
+    }
+
+    .submenu-list {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .menu button,
+    .submenu button {
+      flex: 0 0 auto;
+      padding: 14px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .menu button {
+      flex: 1 0 auto;
+      background: #2c2c3e;
+      color: white;
+    }
+
+    .menu button:hover {
+      background: #444;
+    }
+
+    .menu button.active {
+      background: #4caf50;
+    }
+
+    .submenu button {
+      width: 100%;
+      padding: 14px 16px;
+      background: transparent;
+      color: #1e1e2f;
+      text-align: left;
+    }
+
+    .submenu button:hover {
+      background: #dde5ef;
+    }
+
+    .submenu button.active {
+      background: #4caf50;
+      color: white;
+    }
+
+    .submenu-empty {
+      padding: 14px 16px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .submenu.hidden {
+      display: none;
+    }
+
+    .content {
+      display: flex;
+      flex: 1 1 auto;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .content.tables-layout .submenu {
+      display: flex;
+    }
+
+    iframe {
+      display: block;
+      flex: 1 1 auto;
+      min-height: 0;
+      min-width: 0;
+      width: 100%;
+      border: none;
+      background: white;
+    }
+
+    .security-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(15, 18, 28, 0.96);
+      color: white;
+      text-align: center;
+      z-index: 9999;
+    }
+
+    .security-overlay.visible {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">Hệ thống quản lý bán hàng</div>
+
+<div class="menu"></div>
+<div class="content">
+  <div class="submenu hidden"></div>
+  <iframe id="frame"></iframe>
+</div>
+
+<script src="./config.js"></script>
+<script src="./app.js"></script>
+
+</body>
+</html>
