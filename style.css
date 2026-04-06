@@ -569,8 +569,16 @@ code {
     min-height: calc(100dvh - 128px);
   }
 
+  .view-panel.active {
+    min-height: calc(100vh - 140px);
+    min-height: calc(100dvh - 140px);
+  }
+
   .report-layout.active {
-    grid-template-columns: 1fr;
+    position: relative;
+    display: block;
+    min-height: calc(100vh - 140px);
+    min-height: calc(100dvh - 140px);
   }
 
   .report-layout.is-sidebar-collapsed {
@@ -578,13 +586,19 @@ code {
   }
 
   .report-sidebar {
-    order: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 20;
+    width: min(360px, calc(100vw - 20px));
+    max-width: 88vw;
+    box-shadow: 0 18px 40px rgba(20, 33, 24, 0.16);
+    transition: transform 0.22s ease, opacity 0.22s ease;
   }
 
   .report-content {
-    order: 1;
-    min-height: calc(100vh - 220px);
-    min-height: calc(100dvh - 220px);
+    min-height: 100%;
   }
 
   .report-sidebar,
@@ -595,12 +609,25 @@ code {
   }
 
   .frame-wrap {
-    height: calc(100vh - 130px);
-    height: calc(100dvh - 130px);
+    height: calc(100vh - 140px);
+    height: calc(100dvh - 140px);
   }
 
   .tree-root {
     max-height: 40dvh;
+  }
+
+  .report-layout.is-sidebar-collapsed .report-sidebar {
+    padding: 8px;
+    border: 1px solid var(--line);
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateX(calc(-100% - 12px));
+  }
+
+  .report-layout:not(.is-sidebar-collapsed) .report-sidebar {
+    transform: translateX(0);
   }
 }
 
@@ -634,15 +661,24 @@ code {
     min-height: calc(100dvh - 122px);
   }
 
+  .report-layout.active {
+    min-height: calc(100vh - 132px);
+    min-height: calc(100dvh - 132px);
+  }
+
+  .view-panel.active {
+    min-height: calc(100vh - 132px);
+    min-height: calc(100dvh - 132px);
+  }
+
   .frame-wrap {
-    height: calc(100vh - 124px);
-    height: calc(100dvh - 124px);
+    height: calc(100vh - 132px);
+    height: calc(100dvh - 132px);
     border-radius: 10px;
   }
 
   .report-content {
-    min-height: calc(100vh - 170px);
-    min-height: calc(100dvh - 170px);
+    min-height: auto;
   }
 
   .report-preview-frame {
