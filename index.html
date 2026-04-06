@@ -5,194 +5,76 @@
   <title>Dashboard Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <meta name="robots" content="noindex, nofollow">
-
-  <style>
-    html,
-    body {
-      margin: 0;
-      height: 100%;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      height: 100dvh;
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
-      overflow: hidden;
-    }
-
-    .header {
-      flex: 0 0 auto;
-      padding: 12px;
-      background: #1e1e2f;
-      color: white;
-      text-align: center;
-      font-size: 18px;
-    }
-
-    .menu,
-    .submenu {
-      display: flex;
-      flex: 0 0 auto;
-    }
-
-    .menu {
-      flex-wrap: nowrap;
-      background: #2c2c3e;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .submenu {
-      flex-direction: column;
-      background: #eef2f7;
-      border-right: 1px solid #d5dce5;
-      width: 280px;
-      min-width: 280px;
-      min-height: 0;
-      overflow-x: hidden;
-      overflow-y: hidden;
-    }
-
-    .submenu-search {
-      flex: 0 0 auto;
-      padding: 12px;
-      border-bottom: 1px solid #d5dce5;
-      background: #f7f9fc;
-    }
-
-    .submenu-search input {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #c8d2df;
-      border-radius: 10px;
-      outline: none;
-      font-size: 14px;
-      background: white;
-    }
-
-    .submenu-search input:focus {
-      border-color: #4caf50;
-      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.16);
-    }
-
-    .submenu-list {
-      display: flex;
-      flex: 1 1 auto;
-      flex-direction: column;
-      min-height: 0;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    .menu button,
-    .submenu button {
-      flex: 0 0 auto;
-      padding: 14px;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
-    .menu button {
-      flex: 1 0 auto;
-      background: #2c2c3e;
-      color: white;
-    }
-
-    .menu button:hover {
-      background: #444;
-    }
-
-    .menu button.active {
-      background: #4caf50;
-    }
-
-    .submenu button {
-      width: 100%;
-      padding: 14px 16px;
-      background: transparent;
-      color: #1e1e2f;
-      text-align: left;
-    }
-
-    .submenu button:hover {
-      background: #dde5ef;
-    }
-
-    .submenu button.active {
-      background: #4caf50;
-      color: white;
-    }
-
-    .submenu-empty {
-      padding: 14px 16px;
-      color: #6b7280;
-      font-size: 14px;
-    }
-
-    .submenu.hidden {
-      display: none;
-    }
-
-    .content {
-      display: flex;
-      flex: 1 1 auto;
-      min-width: 0;
-      min-height: 0;
-    }
-
-    .content.tables-layout .submenu {
-      display: flex;
-    }
-
-    iframe {
-      display: block;
-      flex: 1 1 auto;
-      min-height: 0;
-      min-width: 0;
-      width: 100%;
-      border: none;
-      background: white;
-    }
-
-    .security-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      background: rgba(15, 18, 28, 0.96);
-      color: white;
-      text-align: center;
-      z-index: 9999;
-    }
-
-    .security-overlay.visible {
-      display: flex;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-title">Hệ thống quản lý bán hàng</div>
+        <div class="brand-subtitle">Dashboard và tài liệu vận hành</div>
+      </div>
+      <div class="tabs" data-active-tab="dashboard">
+        <div class="tab-slider"></div>
+        <button class="tab-button active" type="button" data-tab="dashboard">Dashboard</button>
+        <button class="tab-button" type="button" data-tab="report">Report</button>
+      </div>
+    </header>
 
-<div class="header">Hệ thống quản lý bán hàng</div>
+    <main class="main-shell">
+      <section class="view-panel active" id="dashboardView">
+        <div class="frame-wrap">
+          <iframe class="content-frame" id="dashboardFrame" title="Dashboard" referrerpolicy="no-referrer"></iframe>
+        </div>
+      </section>
 
-<div class="menu"></div>
-<div class="content">
-  <div class="submenu hidden"></div>
-  <iframe id="frame"></iframe>
-</div>
+      <section class="report-layout" id="reportView">
+        <aside class="report-sidebar" id="reportSidebar">
+          <div class="sidebar-toolbar">
+            <div class="sidebar-actions">
+              <button class="sidebar-toggle is-close" id="sidebarToggle" type="button" aria-label="Đóng thanh bên" aria-expanded="true" aria-controls="reportSidebar">
+                <span class="sidebar-toggle-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <label class="search-box" for="searchInput">
+              <input id="searchInput" type="search" placeholder="Tìm tài liệu hoặc bảng dữ liệu">
+            </label>
+            <div class="report-status" id="reportStatus"></div>
+          </div>
+          <div class="tree-root" id="treeRoot"></div>
+        </aside>
 
-<script src="./config.js"></script>
-<script src="./app.js"></script>
+        <section class="report-content">
+          <div class="preview-shell">
+            <div class="preview-header">
+              <div class="content-toggle-wrap is-hidden" id="contentToggleWrap">
+                <button class="sidebar-toggle is-open" id="contentSidebarToggle" type="button" aria-label="Mở thanh bên" aria-expanded="false" aria-controls="reportSidebar">
+                  <span class="sidebar-toggle-icon" aria-hidden="true"></span>
+                </button>
+              </div>
+              <h2 id="previewTitle">Danh sách tài liệu</h2>
+              <p id="previewNote"></p>
+            </div>
 
+            <div class="report-placeholder" id="reportPlaceholder">
+              <div class="placeholder-card">
+                <div class="placeholder-icon">▦</div>
+                <h2>Chọn tài liệu để xem</h2>
+                <p>Danh sách bên trái hỗ trợ tìm kiếm nhanh và mở trực tiếp trong khung xem trước.</p>
+              </div>
+            </div>
+
+            <iframe class="report-preview-frame" id="reportPreviewFrame" title="Report preview" referrerpolicy="no-referrer"></iframe>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="./config.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>

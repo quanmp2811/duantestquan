@@ -1,0 +1,52 @@
+﻿[
+  {
+    "name": "SalesTarget",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1EQW_Ds8TD1ALtZJEw9TuYbtQqolqAg3NjDai801vgH0/edit?usp=sharing"
+  },
+  {
+    "name": "dim_store_managers",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1cZbXYL8MJP_r_obsD3XWBbcI9THY3tpPQs9keZBBePI/edit?usp=sharing"
+  },
+  {
+    "name": "order_flatten",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1QHCxYuB-3UFo7i0d2iOxRKWf6qKCwxbXqFfWbVcTgwA/edit?usp=sharing"
+  },
+  {
+    "name": "palexy_daily_visits",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1gEIcEJh_AYI0BwhqTx43xS-nlZQny8yihDtZ6KBd8-s/edit?usp=sharing0"
+  },
+  {
+    "name": "palexy_hourly_traffic",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1sfO0sa9MZe4oEIBlhKU1D29QHF4h7rKovzHLQuLWMno/edit?usp=sharing"
+  },
+  {
+    "name": "vw_bills_for_pbi",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1gojQlI0RffMTTpGNtP8v6k3N-QNss7PpYyk1-7zGLW0/edit?usp=sharing"
+  },
+  {
+    "name": "vw_inventory_latest",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1OHaLQyITW7HceXp2DVYfO-TasMKUl6LVTnBRioPr8UM/edit?usp=sharing"
+  },
+  {
+    "name": "vw_product_for_pbi",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/13CcaZXIjqE7NBr_kVR86XTFpVOxzCXd_fCWBiNG6lKE/edit?usp=sharing"
+  },
+  {
+    "name": "vw_retail_bills_for_pbi",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1LYkmBqht8fd9ejeXqjIr-kFEwJHg4GXmIUmxiKp99SM/edit?usp=sharing"
+  },
+  {
+    "name": "vw_stores_with_managers",
+    "type": "file",
+    "url": "https://docs.google.com/spreadsheets/d/1fKBuJITEVumj6wi2nMNigtdJB4SgFkwLonMAVBA1XKc/edit?usp=sharing"
+  }
+]
