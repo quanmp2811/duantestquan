@@ -13,9 +13,14 @@ const reportPlaceholder = document.getElementById("reportPlaceholder");
 const reportPreviewFrame = document.getElementById("reportPreviewFrame");
 const previewTitle = document.getElementById("previewTitle");
 const previewNote = document.getElementById("previewNote");
+const zoomOutButton = document.getElementById("zoomOutButton");
+const zoomInButton = document.getElementById("zoomInButton");
+const zoomSlider = document.getElementById("zoomSlider");
+const zoomResetButton = document.getElementById("zoomResetButton");
 const sidebarToggle = document.getElementById("sidebarToggle");
 const contentSidebarToggle = document.getElementById("contentSidebarToggle");
 const contentToggleWrap = document.getElementById("contentToggleWrap");
+const reportBackdrop = document.getElementById("reportBackdrop");
 
 const state = {
   documents: [],
@@ -24,6 +29,7 @@ const state = {
   selectedId: "",
   selectedUrl: "",
   selectedName: "",
+  previewZoom: 1,
   activeTab: config.tabs?.[0]?.id || "dashboard",
   isSidebarCollapsed: false,
   hasLoadedDocuments: false,
@@ -36,9 +42,11 @@ async function init() {
   bindTabs();
   bindSearch();
   bindSidebarToggle();
+  bindPreviewZoom();
   setupDashboard();
   renderTabs();
   window.addEventListener("resize", syncSidebarToggleContrast);
+  window.addEventListener("resize", applyPreviewZoom);
 }
 
 function bindTabs() {
@@ -75,6 +83,37 @@ function bindSidebarToggle() {
       renderSidebarState();
     });
   });
+
+  if (reportBackdrop) {
+    reportBackdrop.addEventListener("click", () => {
+      if (state.isSidebarCollapsed) return;
+      state.isSidebarCollapsed = true;
+      renderSidebarState();
+    });
+  }
+}
+
+function bindPreviewZoom() {
+  if (zoomOutButton) {
+    zoomOutButton.addEventListener("click", () => updatePreviewZoom(state.previewZoom - 0.1));
+  }
+
+  if (zoomInButton) {
+    zoomInButton.addEventListener("click", () => updatePreviewZoom(state.previewZoom + 0.1));
+  }
+
+  if (zoomResetButton) {
+    zoomResetButton.addEventListener("click", () => updatePreviewZoom(1));
+  }
+
+  if (zoomSlider) {
+    zoomSlider.addEventListener("input", (event) => {
+      const nextZoom = Number(event.target.value) / 100;
+      updatePreviewZoom(nextZoom);
+    });
+  }
+
+  updatePreviewZoomLabel();
 }
 
 function renderTabs() {
@@ -137,6 +176,30 @@ function syncSidebarToggleContrast() {
     if (!button) return;
     button.classList.toggle("is-on-dark", isDarkSurface(button));
   });
+}
+
+function updatePreviewZoom(nextZoom) {
+  const normalizedZoom = Math.min(1.8, Math.max(0.7, Math.round(nextZoom * 10) / 10));
+  state.previewZoom = normalizedZoom;
+  updatePreviewZoomLabel();
+  applyPreviewZoom();
+}
+
+function updatePreviewZoomLabel() {
+  if (!zoomResetButton) return;
+  zoomResetButton.textContent = `${Math.round(state.previewZoom * 100)}%`;
+  if (zoomSlider) {
+    zoomSlider.value = String(Math.round(state.previewZoom * 100));
+  }
+}
+
+function applyPreviewZoom() {
+  if (!reportPreviewFrame) return;
+
+  const zoom = state.previewZoom || 1;
+  reportPreviewFrame.style.transform = `scale(${zoom})`;
+  reportPreviewFrame.style.width = `${100 / zoom}%`;
+  reportPreviewFrame.style.height = `${100 / zoom}%`;
 }
 
 function isDarkSurface(element) {
@@ -530,8 +593,12 @@ function handleNodeClick(node) {
 
   state.selectedUrl = normalizePreviewUrl(node.url || "");
   state.selectedName = node.name || "Tài liệu";
+  if (window.matchMedia("(max-width: 900px)").matches) {
+    state.isSidebarCollapsed = true;
+  }
   renderDocuments();
   renderPreview();
+  renderSidebarState();
 }
 
 function filterNodes(nodes, term) {
@@ -599,15 +666,18 @@ function renderPreview() {
     previewNote.textContent = "";
     reportPreviewFrame.classList.remove("is-visible");
     reportPreviewFrame.removeAttribute("src");
+    updatePreviewZoom(1);
     reportPlaceholder.classList.remove("is-hidden");
     return;
   }
 
   previewTitle.textContent = state.selectedName || "Xem tài liệu";
   previewNote.textContent = "";
+  updatePreviewZoom(1);
   reportPreviewFrame.src = state.selectedUrl;
   reportPreviewFrame.classList.add("is-visible");
   reportPlaceholder.classList.add("is-hidden");
+  applyPreviewZoom();
 }
 
 function escapeHtml(value) {

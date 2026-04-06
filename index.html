@@ -46,6 +46,7 @@
           </div>
           <div class="tree-root" id="treeRoot"></div>
         </aside>
+        <button class="report-backdrop" id="reportBackdrop" type="button" aria-label="Đóng thanh bên"></button>
 
         <section class="report-content">
           <div class="preview-shell">
@@ -68,6 +69,12 @@
             </div>
 
             <iframe class="report-preview-frame" id="reportPreviewFrame" title="Report preview" referrerpolicy="no-referrer"></iframe>
+            <div class="zoom-container" id="previewZoomControls">
+              <button class="btn" id="zoomOutButton" type="button" aria-label="Thu nhỏ">−</button>
+              <input type="range" id="zoomSlider" min="70" max="180" step="10" value="100" aria-label="Thanh điều chỉnh phóng to thu nhỏ">
+              <button class="btn" id="zoomInButton" type="button" aria-label="Phóng to">+</button>
+              <button class="percent" id="zoomResetButton" type="button" aria-label="Đặt lại tỷ lệ">100%</button>
+            </div>
           </div>
         </section>
       </section>
